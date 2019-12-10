@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hkh.sys.dao.SysDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.hkh.sys.bean.SysDept" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="open" property="open" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="INTEGER" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, pid, title, open, remark, address, available, ordernum, createtime
+  </sql>
+  
+  <select id="getDeptBy" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dept
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from sys_dept
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hkh.sys.bean.SysDept">
+    insert into sys_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateById" parameterType="com.hkh.sys.bean.SysDept" >
+    update sys_dept
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有部门信息 -->
+  <select id="queryAllDept" parameterType="com.hkh.sys.vo.DeptVo" resultType="com.hkh.sys.bean.SysDept">
+  	select 
+  		<include refid="Base_Column_List"/>
+	from
+		sys_dept
+	<where>
+		<if test="pid!=null">
+  			and pid=#{pid}
+  		</if>
+  		<if test="title!=null and title!='' ">
+  			and title like CONCAT('%',#{title},'%')
+  		</if>
+  		<if test="address!=null and address!='' ">
+  			and address like CONCAT('%',#{address},'%')
+  		</if>
+  		<if test="remark!=null and remark!='' ">
+  			and remark like CONCAT('%',#{remark},'%')
+  		</if>
+  	</where>
+  		order by ordernum asc
+  </select>
+  
+  <!-- 查询最大的排序码 -->
+  <select id="getDeptMaxnOrderNum" resultType="java.lang.Integer">
+  select ordernum from sys_dept 
+  where
+  		ordernum
+  not in
+  		(select 
+			DISTINCT(s1.ordernum)
+		from
+			sys_dept s1
+		join
+			sys_dept s2
+		on
+			s1.ordernum&lt;s2.ordernum)
+  </select>
+  
+</mapper>
