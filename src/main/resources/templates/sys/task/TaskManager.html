@@ -19,7 +19,7 @@
 		<table id="TaskTables" lay-filter="TaskTables" class="layui-hide"></table>
 		<!-- 头部工具条 -->
 		<div id="TaskTableToolBar" class="layui-hide">
-			<button type="button" lay-event="add"        class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>新增任务</button>
+			<button type="button" lay-event="add" shiro:hasPermission="task:create"  class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>新增任务</button>
 			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
 		</div>
 	</div>
@@ -75,12 +75,12 @@
 <script id="TaskTableLineBar" type="text/html">
 	{{#  if(d.jobStatus !=0 ) { }}
 		<button  type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="stop"><i class="layui-icon layui-icon-edit"></i>停止执行</button>
-		<button  type="button" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
-		<button  type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+		<button  type="button" shiro:hasPermission="task:update" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+		<button  type="button" shiro:hasPermission="task:delete" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
   	{{#  } else { }}
     	<button  type="button" class="layui-btn layui-btn-sm" lay-event="exec"><i class="layui-icon layui-icon-play"></i>开始执行</button>
-		<button  type="button" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
-		<button  type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+		<button  type="button" shiro:hasPermission="task:update" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+		<button  type="button" shiro:hasPermission="task:delete" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
  	 {{#  } }}
 </script>
 <script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>

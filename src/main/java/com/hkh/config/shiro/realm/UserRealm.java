@@ -68,12 +68,10 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		ActivierUser activierUser = (ActivierUser) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		
-		List<String> roles = activierUser.getRoles();
-		List<String> permissions = activierUser.getPermissions();
-		if (null != roles && roles.size() > 0) {
-			info.addRoles(roles);
+		if (activierUser.getUser().getType() == ResultObj.USER_HEIGHT) {
+			info.addStringPermission("*:*");
 		}
+		List<String> permissions = activierUser.getPermissions();
 		if (null != permissions && permissions.size() > 0) {
 			info.addStringPermissions(permissions);
 		}
