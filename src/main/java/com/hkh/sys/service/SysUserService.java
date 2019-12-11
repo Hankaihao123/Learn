@@ -29,4 +29,10 @@ public interface SysUserService {
 	// 给用户移除某个角色
 	public ResultObj deleteRoleByUserid(String rid, Integer uid);
 
+	// 注册用户
+	public ResultObj registerUser(String rloginname, String rpwd, String rname);
+
+	// 获取用户的个人信息
+	public ResultObj getUserInfo();
+
 }

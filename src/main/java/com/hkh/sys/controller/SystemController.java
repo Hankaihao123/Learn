@@ -84,4 +84,9 @@ public class SystemController {
 		return "/sys/task/TaskManager";
 	}
 
+	// 跳转到个人信息页面
+	@RequestMapping("toUserInfo")
+	public String toUserInfo() {
+		return "/sys/user/UserInfo";
+	}
 }

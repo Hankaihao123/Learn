@@ -16,7 +16,7 @@ public interface SysUserMapper {
 
 	int insert(SysUser record);
 
-	SysRole getById(Integer id);
+	SysUser getUserById(Integer id);
 
 	int update(SysUser record);
 

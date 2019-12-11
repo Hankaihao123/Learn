@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
@@ -15,11 +15,11 @@
 <link rel="stylesheet" th:href=@{/resource/lib/dtree/font/dtreefont.css} media="all" />
 </head>
 <body class="childrenBody">
-<fieldset class="layui-elem-field layui-field-title">
+<fieldset class="layui-elem-field layui-field-title" shiro:hasPermission="dept:view">
 	<legend>查询条件</legend>
 	</fieldset>
-	<blockquote class="layui-elem-quote">
-		<form action="" method="post" id="DeptForm"
+	<blockquote class="layui-elem-quote" shiro:hasPermission="dept:view">
+		<form action="" method="post" id="DeptForm" 
 			lay-filter="DeptForm" class="layui-form  layui-form-pane">
 			
 			<div class="layui-form-item" style="text-align: center;">
@@ -59,13 +59,13 @@
 		<table id="DeptTables" lay-filter="DeptTables" class="layui-hide"></table>
 		<!-- 头部工具条 -->
 		<div id="DeptTableToolBar" class="layui-hide">
-			<button type="button" lay-event="add" 		class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>新增部门</button>
+			<button type="button" lay-event="add" 		class="layui-btn"  shiro:hasPermission="dept:create"><i class="layui-icon layui-icon-add-circle"></i>新增部门</button>
 			<button type="button" lay-event="allrefresh"class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
 		</div>
 		<!-- 行内工具条 -->
 		<div id="DeptTableLineBar" class="layui-hide">
-			<button type="button" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
-			<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+			<button type="button" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit" shiro:hasPermission="dept:update"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+			<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete" shiro:hasPermission="dept:delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
 		</div>
 	</div>
 

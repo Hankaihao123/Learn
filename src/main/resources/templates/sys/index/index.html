@@ -33,12 +33,12 @@
 					</li>
 					<li class="layui-nav-item" id="userInfo">
 						<a href="javascript:;">
-							<img th:src=@{/resource/images/face.jpg} class="layui-nav-img userAvatar" width="35" height="35">
+							<img src="/resource/images/face.jpg" class="layui-nav-img userAvatar" width="35" height="35">
 								<cite class="adminName" th:text="${session.user.name}">管理员</cite>
 						</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;" data-url="page/user/userInfo.html">
+								<a href="javascript:;" data-url="/System/toUserInfo">
 									<i class="seraph icon-ziliao" data-icon="icon-ziliao"></i>
 									<cite>个人资料</cite>
 								</a>
@@ -87,7 +87,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像">
-					<img th:src=@{/resource/images/face.jpg} class="userAvatar">
+					<img src="/resource/images/face.jpg" class="userAvatar">
 				</a>
 				<p>
 					你好！<span class="userName" th:text="${session.user.name}">管理员</span>, 欢迎登录
@@ -154,12 +154,13 @@
 	<div class="site-tree-mobile">
 		<i class="layui-icon">&#xe602;</i>
 	</div>
+	
 	<div class="site-mobile-shade"></div>
 	<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/index.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/cache.js}></script>
-	<script type="text/javascript">
-	
+	<script type="text/javascript" >
+	var imgpath='[[${session.user.imgpath}]]';
 	layui.use(['jquery'],function(){
 		var $ = layui.jquery;
 		$("#loginOut").on('click', function() {
@@ -171,6 +172,7 @@
 				}, 1000);
 			});
 		})
+		
 	})
 	</script>
 </body>

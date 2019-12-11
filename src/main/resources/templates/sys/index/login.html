@@ -12,43 +12,61 @@
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="/resource/favicon.ico">
 <link rel="stylesheet" href="/resource/css/public.css" media="all" />
-<link rel="stylesheet" href="/resource/lib/layui/css/layui.css"
-	media="all" />
-<link rel="stylesheet" href="/resource/lib/nprogress/nprogress.css"
-	media="all" />
+<link rel="stylesheet" href="/resource/lib/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="/resource/lib/nprogress/nprogress.css" media="all" />
 </head>
+
 <body class="loginBody">
-	<form class="layui-form">
+	<form class="layui-form" id="login">
 		<div class="login_face">
 			<img src="/resource/images/face.jpg" class="userAvatar">
 		</div>
 		<div class="layui-form-item input-item">
-			<label for="userName">用户名</label> <input type="text"
-				placeholder="请输入用户名" autocomplete="off" id="userName"
-				name="loginname" class="layui-input" lay-verify="required">
+			<label for="userName">用户名</label> <input type="text" placeholder="请输入用户名" autocomplete="off" id="userName" name="loginname" class="layui-input" lay-verify="required">
 		</div>
 		<div class="layui-form-item input-item">
-			<label for="password">密码</label> <input type="password"
-				placeholder="请输入密码" autocomplete="off" id="password" name="pwd"
-				class="layui-input" lay-verify="required">
+			<label for="password">密码</label>
+			<input type="password" placeholder="请输入密码" autocomplete="off" id="password" name="pwd" class="layui-input" lay-verify="required">
 		</div>
 		<div class="layui-form-item input-item" id="imgCode">
-			<label for="code">验证码</label> <input type="text" placeholder="请输入验证码"
-				autocomplete="off" id="code" name="code" class="layui-input">
-			<img src="/resource/images/code.jpg">
+			<label for="code">验证码</label> 
+			<input type="text" placeholder="请输入验证码"	autocomplete="off" id="code" name="code" class="layui-input">
+			<img src="/Login/codeImg" id="codeimg">
 		</div>
+		
+		<div class="layui-form-item" style="text-align: center">
+			<input type="button" class="layui-icon layui-btn layui-inline layui-btn-warm" value="&#xe66f; 普通登录" lay-filter="login" lay-submit></input>
+			<input type="button" class="layui-icon layui-btn layui-inline layui-btn-warm" value="&#xe677; 微信登录" ></input>
+		</div>
+		
 		<div class="layui-form-item">
-			<button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
-		</div>
-		<div class="layui-form-item layui-row">
-			<a href="javascript:;"
-				class="seraph icon-qq layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-			<a href="javascript:;"
-				class="seraph icon-wechat layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-			<a href="javascript:;"
-				class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
+			<input type="button" class="layui-btn layui-block"  id="registerbtn" value="注册"></input>
 		</div>
 	</form>
+	
+	<form class="layui-form" id="register" style="display: none;padding: 25px">
+		<input id="backlogin" type="button"  class="layui-btn layui-btn-normal" value="返回登录" style="margin: -25px 15px 15px -25px"></input>
+		
+		<div class="layui-form-item input-item">
+			<label for="userName">昵称</label> 
+			<input type="text" placeholder="请输入昵称" autocomplete="off" id="rname" name="rname" class="layui-input" lay-verify="required">
+		</div>
+		
+		<div class="layui-form-item input-item">
+			<label for="userName">用户名</label> 
+			<input type="text" placeholder="请输入用户名" autocomplete="off" id="ruserName" name="rloginname" class="layui-input" lay-verify="required">
+		</div>
+		
+		<div class="layui-form-item input-item">
+			<label for="password">密码</label>
+			<input type="password" placeholder="请输入密码" autocomplete="off" id="rpassword" name="rpwd" class="layui-input" lay-verify="required">
+		</div>
+		
+		<div class="layui-form-item">
+				<button class="layui-btn layui-block" lay-filter="register" lay-submit>注册</button>
+		</div>
+	</form>
+	
 	<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
 	<script type="text/javascript" th:src=@{/resource/lib/nprogress/nprogress.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/cache.js}></script>

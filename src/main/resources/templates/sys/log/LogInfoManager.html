@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <meta charset="utf-8">
 <title>日志管理</title>
@@ -20,11 +20,11 @@
 </style>
 </head>
 <body class="childrenBody">
-	<fieldset class="layui-elem-field layui-field-title">
+	<fieldset class="layui-elem-field layui-field-title" shiro:hasPermission="info:view" >
 		<legend>查询条件</legend>
 	</fieldset>
 	<blockquote class="layui-elem-quote">
-		<form action="" method="post" id="logManagerForm"
+		<form action="" method="post" id="logManagerForm" shiro:hasPermission="info:view"
 			lay-filter="logManagerForm" class="layui-form  layui-form-pane">
 
 			<div class="layui-form-item" style="text-align: center;">
@@ -76,11 +76,11 @@
 		<!-- 头部工具条 -->
 		<div id="logTableToolBar" class="layui-hide">
 			<button type="button" class="layui-btn layui-btn-normal" lay-event="allrefresh"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
-			<button type="button" class="layui-btn layui-btn-normal layui-btn-danger" lay-event="alldelete"><i class="layui-icon layui-icon-delete" id='alldelete'></i>批量删除</button>
+			<button type="button" class="layui-btn layui-btn-normal layui-btn-danger" lay-event="alldelete" shiro:hasPermission="info:batchdelete"><i class="layui-icon layui-icon-delete" id='alldelete'></i>批量删除</button>
 		</div>
 		<!-- 行内工具条 -->
 		<div id="logTableLineBar" class="layui-hide">
-			<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+			<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete" shiro:hasPermission="info:delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
 		</div>
 	</div>
 	

@@ -44,7 +44,7 @@ spring:
    #redis配置
   redis:
     database: 0
-    host: 192.168.0.107
+    host: 192.168.0.106
     port: 6379
     password: 897910256
     jedis:
@@ -70,12 +70,35 @@ shiro:
    - /index.html*
    - /System/toLogin*
    - /Login/login
+   - /Login/codeImg
+   - /Login/registerUser
    - /resource/**
   login-url: /index.html
 # logout-url: /Login/logout*
   authc-urls:
   - /**
   
-  
+#kaptcha配置
+kaptcha:
+  border: "yes"         
+  border.color: 105,179,90    
+  textproducer:     
+    font:
+      color: blue     
+      size: 30        
+      names: 宋体,楷体,微软雅黑    
+    char:
+      length: 4    
+  image:
+    width: 116    
+    height: 37
+  session:
+    key: code
 
- 
+
+#项目系统配置
+project:
+  headimageurl: E://Project//HeadImage//
+  ueditorfile:  D://upload//file//
+  ueditorvideo: D://upload//video//
+  ueditorimage: D://upload//image//

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.hkh.sys.bean.SysNotice;
+import com.hkh.sys.bean.SysUser;
 import com.hkh.sys.dao.SysNoticeMapper;
 import com.hkh.sys.service.SysNoticeService;
 import com.hkh.sys.vo.NoticeVo;
@@ -51,8 +52,8 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 	@Override
 	public ResultObj addNotice(NoticeVo noticeVo) {
 		ResultObj obj = null;
-		ActivierUser activeUser = (ActivierUser) WebUtils.getSession().getAttribute("activeUser");
-		SysNotice record = new SysNotice(null, noticeVo.getTitle(), new Date(), activeUser.getUser().getName(),
+		SysUser user = (SysUser) WebUtils.getSession().getAttribute("user");
+		SysNotice record = new SysNotice(null, noticeVo.getTitle(), new Date(), user.getName(),
 				noticeVo.getEditorValue());
 		int count = sysNoticeMapper.insert(record);
 		if (count >= 0) {

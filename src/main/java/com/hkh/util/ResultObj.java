@@ -18,7 +18,7 @@ public class ResultObj {
 	public static final Integer USER_HEIGHT = 0;// 系统管理员
 	public static final ResultObj LOGIN_SUCCESS = new ResultObj(OK, "登陆成功");
 	public static final ResultObj LOGIN_ERROR_PASS = new ResultObj(ERROR, "登陆失败,用户名或密码不正确");
-	public static final ResultObj LOGIN_ERROR_CODE = new ResultObj(ERROR, "登陆失败,验证码不正确");
+	public static final ResultObj LOGIN_ERROR_CODE = new ResultObj(ERROR, "登陆失败,验证码错误,点击更换");
 
 	private Integer code;
 	private String msg;

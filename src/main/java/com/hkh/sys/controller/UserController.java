@@ -1,16 +1,30 @@
 package com.hkh.sys.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.hkh.sys.bean.SysUser;
 import com.hkh.sys.service.SysUserService;
 import com.hkh.sys.vo.UserVo;
 import com.hkh.util.ResultObj;
+import com.hkh.util.WebUtils;
 
 @RequestMapping("User")
 @RestController
 public class UserController {
+
+	@Value("${project.headimageurl}")
+	private String headimageurl;
+
 	@Autowired
 	SysUserService sysUserService;
 
@@ -61,4 +75,38 @@ public class UserController {
 		return sysUserService.deleteRoleByUserid(roleid, userid);
 	}
 
+	// 获取个人信息
+	@RequestMapping("getUserInfo")
+	public ResultObj getUserInfo() {
+		return sysUserService.getUserInfo();
+	}
+
+	// 上传头像
+	@RequestMapping("upLoadHead")
+	public ResultObj upLoadHead(@RequestParam("file") MultipartFile file) {
+		SysUser user = (SysUser) WebUtils.getSession().getAttribute("user");
+		System.out.println(file);
+		String orfilename = file.getOriginalFilename();
+		String suff = orfilename.substring(orfilename.lastIndexOf('.') + 1, orfilename.length());
+		String newfilename = user.getLoginname() + "." + suff;
+		File uploadfile = new File(this.headimageurl + newfilename);
+		try {
+			if (file.getSize() != 0) {
+				file.transferTo(uploadfile);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+			return new ResultObj(1, "上传头像失败");
+		}
+		Map<String, Object> result = new HashMap<String, Object>();
+		String headurl = "/headimage/" + newfilename;
+		result.put("headimgagesrc", headurl);
+		UserVo sysUser = new UserVo();
+		sysUser.setId(user.getId());
+		sysUser.setImgpath(headurl);
+		sysUserService.updateUser(sysUser);
+		user.setImgpath(headurl);
+		WebUtils.getSession().setAttribute("user", user);
+		return new ResultObj(0, "上传头像成功", result);
+	}
 }

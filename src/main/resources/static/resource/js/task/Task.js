@@ -11,6 +11,7 @@ layui.use([ 'jquery', 'form', 'table', 'layer' ], function() {
 		url : '/Task/queryAllTasks',
 		toolbar : '#TaskTableToolBar',
 		defaultToolbar : null,
+		page : true,
 		title : '任务信息数据表',
 		height : 'full-228', // 高度最大化减去差值
 		cols : [ [ {
@@ -61,7 +62,18 @@ layui.use([ 'jquery', 'form', 'table', 'layer' ], function() {
 			title : '操作',
 			align : 'center',
 			templet: '#TaskTableLineBar'
-		} ] ]
+		} ] ],
+		done : function(res, curr, count) {
+			if (count != 0) {
+				if (res.data.length == 0) {
+					TaskTables.reload({
+						page : {
+							curr : curr - 1
+						}
+					});
+				}
+			}
+		}
 	});
 
 	//删除任务
@@ -231,7 +243,7 @@ layui.use([ 'jquery', 'form', 'table', 'layer' ], function() {
 	      TaskAdd()
 	    break;
 	    case 'allrefresh':
-	      layer.msg('刷新');
+	    	TaskTableReload();
 	    break;
 	  };
 	});
