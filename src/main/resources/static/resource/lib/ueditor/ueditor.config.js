@@ -28,6 +28,7 @@
 	//console.log(basePath);
 	//修改一下对接后台的接口
 	var URL = basePath+'ueditor/';
+	console.log(URL);
 	// window.UEDITOR_HOME_URL || getUEBasePath();
 	//	console.log(URL);
 	/**

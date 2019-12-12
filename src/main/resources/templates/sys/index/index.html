@@ -160,7 +160,8 @@
 	<script type="text/javascript" th:src=@{/resource/js/index.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/cache.js}></script>
 	<script type="text/javascript" >
-	var imgpath='[[${session.user.imgpath}]]';
+	imgpath='[[${session.user.imgpath}]]';
+	console.log(imgpath);
 	layui.use(['jquery'],function(){
 		var $ = layui.jquery;
 		$("#loginOut").on('click', function() {

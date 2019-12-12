@@ -44,7 +44,7 @@ spring:
    #redis配置
   redis:
     database: 0
-    host: 192.168.0.106
+    host: 192.168.0.103
     port: 6379
     password: 897910256
     jedis:
@@ -102,3 +102,4 @@ project:
   ueditorfile:  D://upload//file//
   ueditorvideo: D://upload//video//
   ueditorimage: D://upload//image//
+  ueditorpath:  classpath:static//resource//lib//ueditor//

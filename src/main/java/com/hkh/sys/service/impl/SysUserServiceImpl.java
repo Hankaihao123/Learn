@@ -16,7 +16,6 @@ import com.hkh.sys.dao.SysUserMapper;
 import com.hkh.sys.service.SysDeptService;
 import com.hkh.sys.service.SysUserService;
 import com.hkh.sys.vo.UserVo;
-import com.hkh.util.ActivierUser;
 import com.hkh.util.ResultObj;
 import com.hkh.util.WebUtils;
 

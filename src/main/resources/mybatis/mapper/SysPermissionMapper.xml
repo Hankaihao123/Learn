@@ -258,7 +258,7 @@
 		ON
 		sys_permission.id=sys_role_permission.pid
 		WHERE
-		sys_user.id=#{userid} and sys_permission.type=#{type}
+		sys_user.id=#{user_id} and sys_permission.type=#{types}
 	</select>
 
 

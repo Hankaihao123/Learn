@@ -67,8 +67,8 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 	@Override
 	public ResultObj updateNotice(NoticeVo noticeVo) {
 		ResultObj obj = null;
-		ActivierUser activeUser = (ActivierUser) WebUtils.getSession().getAttribute("activeUser");
-		SysNotice record = new SysNotice(noticeVo.getId(), noticeVo.getTitle(), null, activeUser.getUser().getName(),
+		SysUser user = (SysUser) WebUtils.getSession().getAttribute("user");
+		SysNotice record = new SysNotice(noticeVo.getId(), noticeVo.getTitle(), null, user.getName(),
 				noticeVo.getEditorValue());
 		int count = sysNoticeMapper.updateByPrimaryKeySelective(record);
 		if (count >= 0) {

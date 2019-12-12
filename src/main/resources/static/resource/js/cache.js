@@ -1,3 +1,4 @@
+var imgpath;
 var cacheStr = window.sessionStorage.getItem("cache"),
     oneLoginStr = window.sessionStorage.getItem("oneLogin");
 layui.use(['form','jquery',"layer"],function() {
@@ -13,10 +14,7 @@ layui.use(['form','jquery',"layer"],function() {
 	        }
 	    }
 	    
-	    if(imgpath!=''){
-	    	$("#userFace").attr("src",imgpath);
-	        $(".userAvatar").attr("src",imgpath);
-	    }else{
+	    if(imgpath==undefined){
 	    	//判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
 	        if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
 	            $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
@@ -25,6 +23,9 @@ layui.use(['form','jquery',"layer"],function() {
 	            $("#userFace").attr("src","/resource/images/face.jpg");
 	            $(".userAvatar").attr("src","/resource/images/face.jpg");
 	        }
+	    }else if(imgpath!=undefined ||imgpath!='' ){
+	    	$("#userFace").attr("src",imgpath);
+	        $(".userAvatar").attr("src",imgpath);
 	    }
 
 	    //公告层

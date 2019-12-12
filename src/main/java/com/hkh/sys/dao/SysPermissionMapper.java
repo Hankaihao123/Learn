@@ -2,11 +2,11 @@ package com.hkh.sys.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hkh.sys.bean.SysPermission;
 import com.hkh.sys.vo.PermissionVo;
 import com.hkh.util.TreeNode;
-
-import io.lettuce.core.dynamic.annotation.Param;
 
 public interface SysPermissionMapper {
 	List<SysPermission> queryAllMenus(PermissionVo menuVo);
@@ -36,6 +36,6 @@ public interface SysPermissionMapper {
 	int insertRolePermission(@Param("rid") Integer rid, @Param("pid") Integer pid);
 
 	// 通过用户的id查询权限的菜单
-	List<SysPermission> queryMenuAndPermission(@Param("userid") Integer userid, @Param("type") String type);
+	List<SysPermission> queryMenuAndPermission(@Param("user_id") Integer userid, @Param("types") String type);
 
 }

@@ -83,7 +83,7 @@
   </update>
   
   <select id="queryAllRoles" resultMap="BaseResultMap">
-  	select * from sys_Role
+  	select * from sys_role
   </select>
  
 </mapper>

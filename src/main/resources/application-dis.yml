@@ -3,7 +3,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      url: jdbc:mysql://111.229.238.222:3306/erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
       username: root
       password: 897910256
       max-active: 20
@@ -41,6 +41,19 @@ spring:
       #location: D:/upload/
       max-file-size: 100MB #只能大写
       max-request-size: 100MB
+   #redis配置
+  redis:
+    database: 0
+    host: 111.229.238.222
+    port: 6379
+    password: 897910256
+    jedis:
+      pool:
+        max-active: 200
+        max-idle: 10
+        min-idle: 0
+        max-wait: -1
+          
 
 #Mybatis的配置文件
 mybatis:
@@ -57,13 +70,36 @@ shiro:
    - /index.html*
    - /System/toLogin*
    - /Login/login
+   - /Login/codeImg
+   - /Login/registerUser
    - /resource/**
   login-url: /index.html
 # logout-url: /Login/logout*
   authc-urls:
   - /**
   
-  
- #redis配置
+#kaptcha配置
+kaptcha:
+  border: "yes"         
+  border.color: 105,179,90    
+  textproducer:     
+    font:
+      color: blue     
+      size: 30        
+      names: 宋体,楷体,微软雅黑    
+    char:
+      length: 4    
+  image:
+    width: 116    
+    height: 37
+  session:
+    key: code
 
- 
+
+#项目系统配置
+project:
+  headimageurl: /usr/local/hkh/project/headimage/
+  ueditorfile:  /usr/local/hkh/project/file/
+  ueditorvideo: /usr/local/hkh/project/video/
+  ueditorimage: /usr/local/hkh/project/image/
+  ueditorpath:  classpath:static/resource/lib/ueditor/

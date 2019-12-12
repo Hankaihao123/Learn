@@ -27,9 +27,11 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, name, loginname, address, sex, remark, pwd, deptid, hiredate, mgr,
+		id, name, loginname, address, sex, remark, pwd, deptid,
+		hiredate, mgr,
 		available,
-		ordernum, type, imgpath, salt, phone, email, meself
+		ordernum, type, imgpath, salt, phone, email,
+		meself
 	</sql>
 
 	<select id="getUserById" resultMap="BaseResultMap"
@@ -42,7 +44,8 @@
 
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sys_user
-		where id = #{id,jdbcType=INTEGER}
+		where
+		id = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert" parameterType="com.hkh.sys.bean.SysUser">
@@ -260,4 +263,5 @@
 		delete from sys_role_user where uid=#{uid} and
 		rid=#{rid}
 	</delete>
+
 </mapper>

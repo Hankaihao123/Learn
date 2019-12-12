@@ -43,7 +43,8 @@ public class UserRealm extends AuthorizingRealm {
 			// 查询角色
 			List<String> roles = null;
 			// 查询权限
-			List<SysPermission> queryMenuAndPermission = sysPermissionMapper.queryMenuAndPermission(user.getId(),
+			Integer id = user.getId();
+			List<SysPermission> queryMenuAndPermission = sysPermissionMapper.queryMenuAndPermission(id,
 					ResultObj.TYPE_PERMISSION);
 			List<String> permissions = new ArrayList<String>();
 			for (SysPermission sysPermission : queryMenuAndPermission) {
