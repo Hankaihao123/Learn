@@ -95,4 +95,22 @@ layui.use([ 'form', 'layer', 'jquery' ], function() {
 		console.log(1);
 		$(this).attr("src","/Login/codeImg?"+Math.random());
 	})
+	
+	//监听用户名的输入框
+	$("#userName").bind("input propertychange",function(event){
+		if($("#userName").val().length==0){
+			$("#userName").prev().show()
+		}
+	});
+	
+	//给用户名设置默认值
+	if(document.cookie!='' && document.cookie.indexOf('hkh_username')!=-1){
+		var i=document.cookie.indexOf('=');
+		var username=document.cookie.substr(i+1);
+		$("#userName").focus();
+		$("#userName").prev().hide();
+		$("#userName").val(username);
+		$("#password").focus();
+	}
+	
 })

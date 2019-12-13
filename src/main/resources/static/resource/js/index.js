@@ -120,6 +120,10 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 		window.sessionStorage.removeItem("menu");
 		window.sessionStorage.removeItem("curmenu");
 	}
+	
+	$('#leftimghead').on('click',function(){
+		addTab($(this));
+	});
 })
 
 //打开新窗口
@@ -137,3 +141,4 @@ function showImg(){
         });
     });
 }
+

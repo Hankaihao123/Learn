@@ -4,14 +4,15 @@ layui.config({
 }).extend({
     "address" : "address"
 })
-layui.use(['form','layer','upload','laydate',"address"],function(){
+layui.use(['form','layer','upload','laydate',"address",'element'],function(){
     form = layui.form;
     $ = layui.jquery;
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         upload = layui.upload,
         laydate = layui.laydate,
         address = layui.address;
-    
+    	element=layui.element;
+    	
     //将41-4114-411421 分割
     function getaddress(str){
     	if(str==null || str==undefined){
@@ -76,11 +77,18 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
     		  $('#userFace').attr("src",res.data.headimgagesrc);
               //window.sessionStorage.setItem('userFace',res.data.headimgagesrc);
               layer.msg(res.msg, {icon : 6});
-              window.location.reload();
+              //window.location.reload();
+              $('#headerprogress').addClass("layui-hide");
         	}else{
         		 layer.msg(res.msg, {icon : 5});
+        		 $('#headerprogress').addClass("layui-hide");
         	}
-        }
+        },
+        progress: function(n){
+        	$('#headerprogress').removeClass("layui-hide");
+            var percent = n + '%' //获取进度百分比
+            element.progress('demo', percent); //可配合 layui 进度条元素使用
+       }
     });
 
     //添加验证规则
@@ -100,7 +108,6 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
         max : 0,
     });
 
-   
 
     //提交个人资料
     form.on("submit(changeUser)",function(data){
@@ -115,6 +122,7 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
             'address': data.field.province+'-'+ data.field.city+'-'+data.field.area,
             'phone':data.field.phone,
             'email':data.field.email,
+            'birth':data.field.birth,
             'meself':data.field.meself 
         };
         //window.sessionStorage.setItem("userInfo",JSON.stringify(userInfoHtml));

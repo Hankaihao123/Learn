@@ -51,12 +51,12 @@
 								</a>
 							</dd>
 							
-							<dd pc>
+							<!-- <dd pc>
 								<a href="javascript:;" class="functionSetting">
 									<i class="layui-icon">&#xe620;</i>
 									<cite>功能设定</cite>
 								</a>
-							</dd>
+							</dd> -->
 							
 							<dd pc>
 								<a href="javascript:;" class="changeSkin">
@@ -86,8 +86,10 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="我的头像">
-					<img src="/resource/images/face.jpg" class="userAvatar">
+				<a  class="img" id="leftimghead" title='个人资料' href="javascript:;" data-url="/System/toUserInfo">
+						<i style="display: none" class="seraph icon-ziliao" data-icon="icon-ziliao"></i>
+						<cite style="display: none">个人资料</cite>
+						<img src="/resource/images/face.jpg" class="userAvatar">
 				</a>
 				<p>
 					你好！<span class="userName" th:text="${session.user.name}">管理员</span>, 欢迎登录

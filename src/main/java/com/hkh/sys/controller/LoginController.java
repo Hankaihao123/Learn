@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +44,7 @@ public class LoginController {
 	SysUserService sysUserService;
 
 	@RequestMapping("login")
-	public ResultObj login(SysUser user, String code, HttpServletRequest request) {
+	public ResultObj login(SysUser user, String code, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		String scode = (String) session.getAttribute("code");
 		if (scode == null || !scode.equals(code)) {
@@ -55,7 +55,7 @@ public class LoginController {
 		try {
 			subject.login(token);
 			ActivierUser activeUser = (ActivierUser) subject.getPrincipal();
-			WebUtils.getSession().setAttribute("user", activeUser.getUser());
+			SysUser loginUser = activeUser.getUser();
 			String loginname = activeUser.getUser().getName() + '-' + activeUser.getUser().getLoginname();
 			String loginip = WebUtils.getRequest().getRemoteAddr();
 			SysLogInfo logInfo = new SysLogInfo();
@@ -63,6 +63,15 @@ public class LoginController {
 			logInfo.setLoginname(loginname);
 			logInfo.setLogintime(new Date());
 			sysLogInfoService.insert(logInfo);
+			// token.setRememberMe(true);
+			WebUtils.getSession().setAttribute("user", loginUser);
+			Cookie cookie1 = new Cookie("hkh_username", loginUser.getLoginname());
+			cookie1.setPath("/");
+			cookie1.setMaxAge(172800);
+			response.addCookie(cookie1);
+			// Cookie cookie2 = new Cookie("password", "123456");
+			// cookie2.setPath("/");
+			// response.addCookie(cookie2);
 			return ResultObj.LOGIN_SUCCESS;
 		} catch (AuthenticationException e) {
 			return ResultObj.LOGIN_ERROR_PASS;

@@ -2,11 +2,13 @@ package com.hkh.sys.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,8 +53,9 @@ public class UserController {
 
 	// 修改用户
 	@RequestMapping("updateUser")
-	public ResultObj updateUser(UserVo userVo) {
+	public ResultObj updateUser(UserVo userVo, @RequestParam @DateTimeFormat(pattern = "yyyy年MM月dd日") Date birth) {
 		System.err.println("updateUser:" + userVo);
+		userVo.setHiredate(birth);
 		return sysUserService.updateUser(userVo);
 	}
 

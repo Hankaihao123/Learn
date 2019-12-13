@@ -53,7 +53,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public ResultObj addUser(UserVo userVo) {
 		ResultObj obj = null;
-		
+
 		int count = sysUserMapper.insert(userVo);
 		if (count >= 0) {
 			obj = new ResultObj(0, "新增用户成功");
@@ -152,6 +152,11 @@ public class SysUserServiceImpl implements SysUserService {
 		userVo.setPwd(result.toString());
 		userVo.setSalt("04A93C74C8294AA09A8B974FD1F4ECBB");
 		userVo.setAddress("41-4101-410183");
+		userVo.setImgpath("/headimage/face.jpg");
+		userVo.setType(1);
+		userVo.setRemark("无备注");
+		userVo.setOrdernum(7);
+		userVo.setDeptid(4);
 		int count = sysUserMapper.insert(userVo);
 		if (count > 0) {
 			return new ResultObj(0, "该用户注册成功");
