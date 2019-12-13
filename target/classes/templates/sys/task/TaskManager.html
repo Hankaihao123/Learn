@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta charset="utf-8">
+<title>任务管理</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
+<link rel="stylesheet" th:href=@{/resource/css/public.css} media="all" />
+</head>
+<body class="childrenBody">
+	<!-- 数据表格 -->
+	<div>
+		<table id="TaskTables" lay-filter="TaskTables" class="layui-hide"></table>
+		<!-- 头部工具条 -->
+		<div id="TaskTableToolBar" class="layui-hide">
+			<button type="button" lay-event="add" shiro:hasPermission="task:create"  class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>新增任务</button>
+			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
+		</div>
+	</div>
+	
+	<!--新增和修改时使用 -->
+	<div id="TaskModForm" style="display: none;">
+		<form action="" method="post" id="TaskInfoForm"
+			lay-filter="TaskInfoForm" class="layui-form" style="margin: 15px">
+			<input type="hidden" name="id">
+			<div class="layui-form-item" >
+				<label class="layui-form-label">任务名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="jobName" lay-verify="required" placeholder="请输入任务名称" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">任务描述</label>
+				<div class="layui-input-block">
+					<input type="text" name="description" placeholder="请输入任务描述" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">Cron表达式</label>
+				<div class="layui-input-block">
+					<input type="text" name="cronExpression" placeholder="请输入Cron表达式" lay-verify="required"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">全类名</label>
+				<div class="layui-input-block">
+					<input type="text" name="beanClass" id="beanClass" placeholder="请输入全类名" lay-verify="required"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">任务组名</label>
+				<div class="layui-input-block">
+					<input type="text" name="jobGroup" placeholder="请输入任务组名" lay-verify="required"  autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<button type="submit" class="layui-btn" lay-submit="" lay-filter="TaskInfo"><i class="layui-icon layui-icon-ok-circle"></i>提交</button>
+				<button type="button" class="layui-btn layui-btn-primary" id="btnclose"><i class="layui-icon layui-icon-close-fill"></i>取消</button>
+			</div>	
+		</form>
+		</div>
+</body>
+<!-- 定义行内工具条 -->
+<script id="TaskTableLineBar" type="text/html">
+	{{#  if(d.jobStatus !=0 ) { }}
+		<button  type="button" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="stop"><i class="layui-icon layui-icon-edit"></i>停止执行</button>
+		<button  type="button" shiro:hasPermission="task:update" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+		<button  type="button" shiro:hasPermission="task:delete" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+  	{{#  } else { }}
+    	<button  type="button" class="layui-btn layui-btn-sm" lay-event="exec"><i class="layui-icon layui-icon-play"></i>开始执行</button>
+		<button  type="button" shiro:hasPermission="task:update" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+		<button  type="button" shiro:hasPermission="task:delete" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
+ 	 {{#  } }}
+</script>
+<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/task/taskManager.js}></script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
+<link rel="stylesheet" th:href=@{/resource/css/public.css} media="all" />
+<link rel="stylesheet" th:href=@{/resource/lib/dtree/dtree.css} media="all" />
+<link rel="stylesheet" th:href=@{/resource/lib/dtree/font/dtreefont.css} media="all" />
+</head>
+<body>
+	<!-- dtree树形组件 -->
+	 <ul id="deptTree" class="dtree" data-id="0"></ul>
+</body>
+<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/dept/deptLeft.js}></script>
+</html>

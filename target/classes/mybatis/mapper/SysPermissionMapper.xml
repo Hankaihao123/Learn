@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hkh.sys.dao.SysPermissionMapper">
+
+	<resultMap id="BaseResultMap"
+		type="com.hkh.sys.bean.SysPermission">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="percode" property="percode" jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="href" property="href" jdbcType="VARCHAR" />
+		<result column="target" property="target" jdbcType="VARCHAR" />
+		<result column="open" property="open" jdbcType="INTEGER" />
+		<result column="ordernum" property="ordernum"
+			jdbcType="INTEGER" />
+		<result column="available" property="available"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, pid, type, title, percode, icon, href, target, open,
+		ordernum,
+		available
+	</sql>
+
+	<select id="getById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_permission
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deletById" parameterType="java.lang.Integer">
+		delete from sys_permission
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert"
+		parameterType="com.hkh.sys.bean.SysPermission">
+		insert into sys_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="percode != null">
+				percode,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+			<if test="target != null">
+				target,
+			</if>
+			<if test="open != null">
+				open,
+			</if>
+			<if test="ordernum != null">
+				ordernum,
+			</if>
+			<if test="available != null">
+				available,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="percode != null">
+				#{percode,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="href != null">
+				#{href,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				#{target,jdbcType=VARCHAR},
+			</if>
+			<if test="open != null">
+				#{open,jdbcType=INTEGER},
+			</if>
+			<if test="ordernum != null">
+				#{ordernum,jdbcType=INTEGER},
+			</if>
+			<if test="available != null">
+				#{available,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateById"
+		parameterType="com.hkh.sys.bean.SysPermission">
+		update sys_permission
+		<set>
+			<if test="pid != null">
+				pid = #{pid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="percode != null">
+				percode = #{percode,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				target = #{target,jdbcType=VARCHAR},
+			</if>
+			<if test="open != null">
+				open = #{open,jdbcType=INTEGER},
+			</if>
+			<if test="ordernum != null">
+				ordernum = #{ordernum,jdbcType=INTEGER},
+			</if>
+			<if test="available != null">
+				available = #{available,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询用户的菜单 -->
+	<select id="queryAllMenus"
+		resultType="com.hkh.sys.bean.SysPermission">
+		select
+		<include refid="Base_Column_List"></include>
+		from
+		sys_permission
+		<where>
+			<if test="pid!=null">
+				and pid=#{pid}
+			</if>
+			<if test="title!=null and title!='' ">
+				and title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="percode != null">
+				and percode like CONCAT('%',#{percode},'%')
+			</if>
+			<if test="available!=null and available!='' ">
+				and available =#{available}
+			</if>
+			<if test="type!=null and type!='' ">
+				and type =#{type}
+			</if>
+		</where>
+		order by ordernum asc
+	</select>
+
+	<!-- 查询最大的排序码 -->
+	<select id="getMenuMaxnOrderNum" resultType="java.lang.Integer">
+		select ordernum from
+		sys_permission WHERE type='menu' and ordernum not in (
+		select
+		DISTINCT(t2.ordernum) from sys_permission as t1
+		JOIN
+		sys_permission as
+		t2
+		ON
+		t1.ordernum > t2.ordernum
+		where
+		t1.type='menu' and t2.type='menu'
+		)
+	</select>
+
+	<select id="getPermissionMaxnOrderNum"
+		resultType="java.lang.Integer">
+		select ordernum from
+		sys_permission WHERE type='permission'
+		and ordernum not in (
+		select
+		DISTINCT(t2.ordernum) from sys_permission
+		as t1
+		JOIN
+		sys_permission as t2
+		ON
+		t1.ordernum > t2.ordernum
+		where
+		t1.type='permission' and t2.type='permission'
+		)
+	</select>
+
+	<!-- 获取所有的权限 -->
+	<select id="queryPermission" resultType="com.hkh.util.TreeNode">
+		select
+		sys_permission.id,sys_permission.pid,sys_permission.title from
+		sys_permission
+	</select>
+
+	<!-- 通过角色查询权限 -->
+	<select id="getPermissionByRoleid"
+		resultType="com.hkh.util.TreeNode">
+		select
+		sys_permission.id,sys_permission.pid,sys_permission.title from
+		sys_permission join sys_role_permission
+		on
+		sys_permission.id=sys_role_permission.pid
+		where
+		sys_role_permission.rid=#{roleid}
+	</select>
+
+	<!-- 删除角色对应的权限 -->
+	<delete id="deletRolePermissionByRole"
+		parameterType="java.lang.Integer">
+		delete from sys_role_permission where
+		sys_role_permission.rid=#{roleid}
+	</delete>
+
+	<!-- 增权限 -->
+	<insert id="insertRolePermission">
+		insert into sys_role_permission value(#{rid},#{pid})
+	</insert>
+
+	<!-- 通过用户id查询对应的菜单和权限-->
+	<select id="queryMenuAndPermission" resultMap="BaseResultMap">
+		SELECT DISTINCT sys_permission.* FROM sys_user
+		JOIN
+		sys_role_user
+		ON
+		sys_role_user.uid =sys_user.id
+		JOIN
+		sys_role_permission
+		ON
+		sys_role_permission.rid=sys_role_user.rid
+		JOIN
+		sys_permission
+		ON
+		sys_permission.id=sys_role_permission.pid
+		WHERE
+		sys_user.id=#{user_id} and sys_permission.type=#{types}
+	</select>
+
+
+
+</mapper>

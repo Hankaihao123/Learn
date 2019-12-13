@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hkh.sys.dao.SysNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.hkh.sys.bean.SysNotice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="opername" property="opername" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hkh.sys.bean.SysNotice" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, title, createtime, opername,content
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hkh.sys.bean.SysNotice" >
+    insert into sys_notice (id, title, createtime, 
+      opername, content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{opername,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hkh.sys.bean.SysNotice" >
+    insert into sys_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="opername != null" >
+        opername,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opername != null" >
+        #{opername,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hkh.sys.bean.SysNotice" >
+    update sys_notice
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opername != null" >
+        opername = #{opername,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hkh.sys.bean.SysNotice" >
+    update sys_notice
+    set title = #{title,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      opername = #{opername,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hkh.sys.bean.SysNotice" >
+    update sys_notice
+    set title = #{title,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      opername = #{opername,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有的公告信息-->
+  <select id="queryAllNotice" parameterType="com.hkh.sys.vo.NoticeVo" resultType="com.hkh.sys.bean.SysNotice">
+  select 
+  		<include refid="Base_Column_List"></include>
+  	from
+  		sys_notice
+  	<where>
+  		<if test="title!=null and title!='' ">
+  			and title like CONCAT('%',#{title},'%')
+  		</if>
+  		<if test="startTime!=null">
+  			and createtime between #{startTime} and #{endTime}
+  		</if>
+  	</where>
+  		order by createtime desc
+  </select>
+  
+  <!-- 删除公告信息 -->
+  <delete id="deleteNoticemult" parameterType="list">
+	delete  from sys_notice where id in
+	<foreach collection="ids" item="id" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+  </delete>
+</mapper>
