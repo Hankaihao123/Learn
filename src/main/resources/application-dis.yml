@@ -71,6 +71,8 @@ shiro:
    - /System/toLogin*
    - /Login/login
    - /Login/codeImg
+   - /Login/getUserImgpath
+   - /headimage/**
    - /Login/registerUser
    - /resource/**
   login-url: /index.html

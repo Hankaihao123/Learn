@@ -263,5 +263,10 @@
 		delete from sys_role_user where uid=#{uid} and
 		rid=#{rid}
 	</delete>
+	
+	<select id="getUserImgPath" resultType="java.lang.String">
+		select imgpath from sys_user  where loginname=#{name}	
+	</select>
+	
 
 </mapper>

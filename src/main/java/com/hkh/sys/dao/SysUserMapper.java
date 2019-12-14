@@ -32,4 +32,6 @@ public interface SysUserMapper {
 
 	int deleteRoleByUserid(@Param("rid") Integer rid, @Param("uid") Integer uid);
 
+	// 登录获取用户头像
+	String getUserImgPath(@Param("name") String loginname);
 }

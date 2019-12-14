@@ -103,6 +103,18 @@ layui.use([ 'form', 'layer', 'jquery' ], function() {
 		}
 	});
 	
+	$("#userName").blur(function(){
+		var name=$("#userName").val();
+		console.log(name);
+		$.post('/Login/getUserImgpath?name='+name,null,function(res){
+			if(res.code==0){
+				$('.userAvatar').attr('src',res.data);
+			}else{
+				$('.userAvatar').attr('src','/resource/images/face.jpg');
+			}
+		})
+	});
+	
 	//给用户名设置默认值
 	if(document.cookie!='' && document.cookie.indexOf('hkh_username')!=-1){
 		var i=document.cookie.indexOf('=');

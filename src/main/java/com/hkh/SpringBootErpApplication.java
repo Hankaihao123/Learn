@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(value = { "com.hkh.sys.dao" })
 @SpringBootApplication
 public class SpringBootErpApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootErpApplication.class, args);
 	}

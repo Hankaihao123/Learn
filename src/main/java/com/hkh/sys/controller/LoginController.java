@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -44,8 +44,9 @@ public class LoginController {
 	SysUserService sysUserService;
 
 	@RequestMapping("login")
-	public ResultObj login(SysUser user, String code, HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public ResultObj login(SysUser user, String code, HttpServletResponse response) {
+		HttpSession session = WebUtils.getSession();
+		System.err.println(session.getId());
 		String scode = (String) session.getAttribute("code");
 		if (scode == null || !scode.equals(code)) {
 			return ResultObj.LOGIN_ERROR_CODE;
@@ -87,11 +88,13 @@ public class LoginController {
 
 	// 验证码
 	@RequestMapping("codeImg")
-	public ResultObj codeImg(HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	public ResultObj codeImg(HttpServletResponse response) {
 		byte[] captchaChallengeAsJpeg;
 		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
 		String createText = defaultKaptcha.createText();
-		HttpSession session = request.getSession();
+		HttpSession session = WebUtils.getSession();
+		System.err.println(session.getId() + "->" + createText);
 		session.setAttribute("code", createText);
 		BufferedImage challenge = defaultKaptcha.createImage(createText);
 		try {
@@ -106,14 +109,21 @@ public class LoginController {
 		response.setContentType("image/jpeg");
 		try {
 			ServletOutputStream servletOutputStream = response.getOutputStream();
-			response.reset();
 			servletOutputStream.write(captchaChallengeAsJpeg);
 			servletOutputStream.flush();
 			servletOutputStream.close();
 		} catch (IOException e) {
 			return new ResultObj(1, "验证生成失败"); // 返回成功提示信息
 		}
-		return new ResultObj(0, "验证生成成功"); // 返回成功提示信息
+		// return new ResultObj(0, "验证生成成功"); // 返回成功提示信息
+		return null;
+	}
+
+	// 登录时获取用户头像
+	@RequestMapping("getUserImgpath")
+	public ResultObj getUserImgpath(String name) {
+		ResultObj userImgPath = sysUserService.getUserImgPath(name);
+		return userImgPath;
 	}
 
 	// 退出登录

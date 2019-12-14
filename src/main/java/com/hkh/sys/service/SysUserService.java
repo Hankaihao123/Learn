@@ -35,4 +35,7 @@ public interface SysUserService {
 	// 获取用户的个人信息
 	public ResultObj getUserInfo();
 
+	// 登录时获取用户头像
+	public ResultObj getUserImgPath(String name);
+
 }

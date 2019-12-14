@@ -177,4 +177,15 @@ public class SysUserServiceImpl implements SysUserService {
 		return new ResultObj(0, "查找用户成功", user2);
 	}
 
+	@Override
+	public ResultObj getUserImgPath(String name) {
+		String imgpath = sysUserMapper.getUserImgPath(name);
+		if (imgpath == null) {
+			return new ResultObj(1, "查询用户头像失败", null);
+		} else {
+			return new ResultObj(0, "查询用户头像成功", imgpath);
+		}
+
+	}
+
 }
