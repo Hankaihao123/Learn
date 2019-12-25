@@ -89,4 +89,22 @@ public class SystemController {
 	public String toUserInfo() {
 		return "sys/user/UserInfo";
 	}
+
+	// 跳转工作流管理页面
+	@RequestMapping("toWorkFlowManager")
+	public String toWorkFlowManager() {
+		return "sys/activiti/workflowManager";
+	}
+
+	// 跳转工作流执行页面
+	@RequestMapping("toExeWorkFlowManager")
+	public String toExeWorkFlowManager() {
+		return "sys/activiti/exeworkflowManager";
+	}
+
+	// 跳转工作流办理任务页面
+	@RequestMapping("toDoneTask")
+	public String toDoneTask() {
+		return "sys/activiti/doneTask";
+	}
 }

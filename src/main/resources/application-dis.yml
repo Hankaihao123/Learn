@@ -105,3 +105,7 @@ project:
   ueditorvideo: /usr/local/hkh/project/video/
   ueditorimage: /usr/local/hkh/project/image/
   ueditorpath:  classpath:static/resource/lib/ueditor/
+  workflow: /usr/local/hkh/project/WorkFlow/
+  WorkFlowDefineImage: /usr/local/hkh/project/WorkFlowDefineImage/
+  activiti: classpath:static/resource//lib/activiti/
+  editorapp: classpath:static/resource/lib/activiti/editor-app/

@@ -14,6 +14,8 @@
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
 <link rel="stylesheet" th:href=@{/resource/css/index.css} media="all" />
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -44,12 +46,12 @@
 								</a>
 							</dd>
 							
-							<dd>
+							<!-- <dd>
 								<a href="javascript:;" data-url="page/user/changePwd.html">
 									<i	class="seraph icon-xiugai" data-icon="icon-xiugai"></i>
 									<cite>修改密码</cite>
 								</a>
-							</dd>
+							</dd> -->
 							
 							<!-- <dd pc>
 								<a href="javascript:;" class="functionSetting">
@@ -158,12 +160,23 @@
 	</div>
 	
 	<div class="site-mobile-shade"></div>
+	
+	<script type="text/html" id="noticeDiv">
+	<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+	尊敬的用户您好:<br><br>
+	<br>#{content}
+	<br>祝您快乐每一天,奥力给 ^_^
+	</div>
+	</script>
 	<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/index.js}></script>
 	<script type="text/javascript" th:src=@{/resource/js/cache.js}></script>
+	<script type="text/javascript" th:src=@{/resource/js/websocket/websocket.js}></script>
 	<script type="text/javascript" >
 	imgpath='[[${session.user.imgpath}]]';
 	//console.log(imgpath);
+	USER_ID='[[${session.user.id}]]';
+	//console.log(id);
 	layui.use(['jquery'],function(){
 		var $ = layui.jquery;
 		$("#loginOut").on('click', function() {

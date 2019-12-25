@@ -100,8 +100,12 @@ kaptcha:
 
 #项目系统配置
 project:
-  headimageurl: D://Project//HeadImage//
+  headimageurl: E://Project//HeadImage//
   ueditorfile:  D://upload//file//
   ueditorvideo: D://upload//video//
   ueditorimage: D://upload//image//
   ueditorpath:  classpath:static//resource//lib//ueditor//
+  workflow: E://Project//WorkFlow//
+  WorkFlowDefineImage: E://Project//WorkFlowDefineImage//
+  activiti: classpath:static//resource//lib//activiti//
+  editorapp: classpath:static//resource//lib//activiti//editor-app

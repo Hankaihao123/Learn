@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>流程管理</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
+</head>
+<body>
+	<fieldset class="layui-elem-field layui-field-title" >
+	<legend>查询条件</legend>
+</fieldset>
+	<blockquote class="layui-elem-quote">
+		<form action="" method="post" id="WorkFlowManagerForm"
+			lay-filter="WorkFlowManagerForm" class="layui-form  layui-form-pane">
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<div class="layui-inline">
+					<label class="layui-form-label">流程名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				<!-- <div class="layui-inline">
+					<label class="layui-form-label">部署时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="startTime" id="startTime" autocomplete="off" placeholder="yyyy-MM-dd" readonly="readonly" class="layui-input" lay-verify="startTime">
+					</div>
+				</div> -->
+			</div>
+
+			<div class="layui-form-item" style="text-align: center;">
+				<div class="layui-input-block">
+					<button type="submit" class="layui-btn" lay-submit="" lay-filter="WorkFlowTable"><i class="layui-icon layui-icon-search"></i>查询</button>
+					<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-refresh-3"></i>重置</button>
+				</div>
+			</div>
+		</form>
+	</blockquote>
+	
+	<!-- 流程部署数据表格 -->
+	<div>
+		<table id="WorkFlowTables" lay-filter="WorkFlowTables" class="layui-hide"></table>
+		<!-- 头部工具条 -->
+		<div id="WorkFlowTableToolBar" class="layui-hide">
+			<button type="button" lay-event="add"        class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>部署流程</button>
+			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
+			
+		</div>
+		<!-- 行内工具条 -->
+		<div id="WorkFlowTableLineBar" class="layui-hide">
+			<button type="button"  lay-event="edit" class="layui-btn layui-btn-sm layui-btn-warm" ><i class="layui-icon layui-icon-edit"></i>编辑</button>
+			<button type="button"  lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon layui-icon-delete"></i>删除</button>
+			<a lay-event="down" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon layui-icon-download-circle"></i>下载流程zip</a>
+		</div>
+	</div>
+
+	<!-- 流程定义数据表格 -->
+	<div>
+		<table id="WorkFlowDefineTables" lay-filter="WorkFlowDefineTables" class="layui-hide"></table>
+		<!-- 头部工具条 -->
+		<div id="WorkFlowDefineTableToolBar" class="layui-hide">
+			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
+		</div>
+		<!-- 行内工具条 -->
+		<div id="WorkFlowDefineTableLineBar" class="layui-hide">
+			<button type="button"  lay-event="show" class="layui-btn layui-btn-sm layui-btn-warm" ><i class="layui-icon layui-icon-picture"></i>查看流程图</button>
+		</div>
+	</div>
+	
+
+	<!-- 部署流程使用的 -->
+	<div id="addWorkFlow" style="display: none;">
+		<form action="" method="post" id="addWorkFlowForm"  enctype="mutipart/form-data"
+			lay-filter="addWorkFlowForm" class="layui-form"  style="margin: 15px">
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">流程名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="name" id="name" lay-verify="required" placeholder="请输入流程名称" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">流程压缩包</label>
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-warm" id="uploadZip"> <i class="layui-icon">&#xe67c;</i>选择Zip压缩包</button>
+				</div>
+			</div>
+			
+			<div class="layui-form-item"  style="text-align: center;">
+				<button type="submit" class="layui-btn" lay-submit="" lay-filter="WorkFlowInfo"><i class="layui-icon layui-icon-ok-circle"></i>提交</button>
+				<button type="button" class="layui-btn layui-btn-primary" id="btnclose"><i class="layui-icon layui-icon-close-fill"></i>取消</button>
+			</div>
+			
+		</form>
+	</div>
+	
+</body>
+<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/activiti/workflow.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/activiti/workflowdefine.js}></script>
+</html>

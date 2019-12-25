@@ -188,4 +188,14 @@ public class SysUserServiceImpl implements SysUserService {
 
 	}
 
+	@Override
+	public ResultObj getUserById(Integer id) {
+		SysUser sysUser = this.sysUserMapper.getUserById(id);
+		if (sysUser != null) {
+			return new ResultObj(1, "查询用户成功", sysUser);
+		} else {
+			return new ResultObj(0, "查询用户失败");
+		}
+	}
+
 }

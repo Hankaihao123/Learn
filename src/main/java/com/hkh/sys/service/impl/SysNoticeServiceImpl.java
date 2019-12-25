@@ -14,7 +14,6 @@ import com.hkh.sys.bean.SysUser;
 import com.hkh.sys.dao.SysNoticeMapper;
 import com.hkh.sys.service.SysNoticeService;
 import com.hkh.sys.vo.NoticeVo;
-import com.hkh.util.ActivierUser;
 import com.hkh.util.ResultObj;
 import com.hkh.util.WebUtils;
 

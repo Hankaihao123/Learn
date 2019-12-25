@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>办理任务</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
+</head>
+<body>
+
+	<!-- 办理任务表格 -->
+	<div>
+		<table id="DoneTaskTables" lay-filter="DoneTaskTables" class="layui-hide"></table>
+		<!-- 头部工具条 -->
+		<div id="DoneTaskTableToolBar" class="layui-hide">
+			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
+		</div>
+		
+		<!-- 行内工具条 -->
+		<div id="DoneTaskTableLineBar" class="layui-hide">
+			<button type="button"  lay-event="doneTask" class="layui-btn layui-btn-sm layui-btn-warm" ><i class="layui-icon layui-icon-right"></i>办理任务</button>
+			<button type="button"  lay-event="view" class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon layui-icon-log"></i>查看流程图</button>
+		</div>
+	</div>
+	
+	<div id="showDoneTaskDiv" style="display: none">
+			<form action="" method="post" id="doneTaskFrom" lay-filter="doneTaskFrom" class="layui-form  layui-form-pane">
+			<div class="layui-form-item" style="text-align: center; margin: 10px">
+				<input type="hidden" name="id"/>
+				<div class="layui-inline">
+					<label class="layui-form-label">执行标题</label>
+					<div class="layui-input-inline">
+						<input type="text" name="title" autocomplete="off" disabled="disabled" class="layui-input">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<input type="hidden" name="id"/>
+				<div class="layui-inline">
+					<label class="layui-form-label">信息内容</label>
+					<div class="layui-input-inline">
+						<input type="text" name="content" autocomplete="off" disabled="disabled" class="layui-input">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<input type="hidden" name="id"/>
+				<div class="layui-inline">
+					<label class="layui-form-label">信息数量</label>
+					<div class="layui-input-inline">
+						<input type="text" name="datas" autocomplete="off" disabled="disabled" class="layui-input">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<input type="hidden" name="id"/>
+				<div class="layui-inline">
+					<label class="layui-form-label">申请时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="createtime" autocomplete="off" disabled="disabled" class="layui-input">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<div class="layui-inline">
+					<label class="layui-form-label">批注</label>
+					<div class="layui-input-inline">
+						<input type="text" name="info" autocomplete="off"  lay-verify="required"  class="layui-input">
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item" style="text-align: center;">
+				<button id="btn1" type="submit" lay-submit="" lay-filter="rightExe" class="layui-btn" ><i class="layui-icon layui-icon-ok"></i>同意</button>
+				<button id="btn2" type="submit" lay-submit="" lay-filter="errorExe" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-close"></i>驳回</button>
+			</div>
+		</form>
+		<table id="CommentTables" lay-filter="CommentTables" ></table>
+	</div>
+	
+	<div id="workflowDivImg" style="display: none">
+		<img alt="workflowimg" src="" >
+		<div id="imgpostion"></div>
+	</div>
+</body>
+<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/activiti/doneTask.js}></script>
+</html>

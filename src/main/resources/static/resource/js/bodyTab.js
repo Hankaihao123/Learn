@@ -58,6 +58,7 @@ layui.define(["element","jquery"],function(exports){
                             ulHtml += '<i class="layui-icon" data-icon="'+data[i].children[j].icon+'">'+data[i].children[j].icon+'</i>';
                         }
                     }
+                    
                     ulHtml += '<cite>'+data[i].children[j].title+'</cite></a></dd>';
                 }
                 ulHtml += "</dl>";
@@ -80,6 +81,7 @@ layui.define(["element","jquery"],function(exports){
         }
         return ulHtml;
     }
+    
 	//获取二级菜单数据
 	Tab.prototype.render = function() {
 		//显示左侧菜单
@@ -152,7 +154,7 @@ layui.define(["element","jquery"],function(exports){
 					return;
 				}
 				tabIdIndex++;
-				title += '<cite>'+_this.find("cite").text()+'</cite>';
+				title += '<cite>'+_this.find("cite").html()+'</cite>';
 				title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="'+tabIdIndex+'">&#x1006;</i>';
 				element.tabAdd(tabFilter, {
 			        title : title,

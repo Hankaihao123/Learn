@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>执行流程</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href=@{/resource/lib/layui/css/layui.css} media="all" />
+</head>
+<body>
+	<fieldset class="layui-elem-field layui-field-title" >
+	<legend>查询条件</legend>
+</fieldset>
+	<blockquote class="layui-elem-quote">
+		<form action="" method="post" id="WorkFlowManagerForm" lay-filter="WorkFlowManagerForm" class="layui-form  layui-form-pane">
+			
+			<div class="layui-form-item" style="text-align: center;">
+				<div class="layui-inline">
+					<label class="layui-form-label">执行标题</label>
+					<div class="layui-input-inline">
+						<input type="text" name="title" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				 <div class="layui-inline">
+					<label class="layui-form-label">开始时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="createtime" id="startTime" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss" readonly="readonly" class="layui-input" lay-verify="startTime">
+					</div>
+				</div> 
+				
+				<div class="layui-inline">
+					<label class="layui-form-label">结束时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="endtime" id="endTime" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss" readonly="readonly" class="layui-input" lay-verify="startTime">
+					</div>
+				</div> 
+			</div>
+
+			<div class="layui-form-item" style="text-align: center;">
+				<button type="submit" class="layui-btn" lay-submit="" lay-filter="WorkFlowQuery"><i class="layui-icon layui-icon-search"></i>查询</button>
+				<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-refresh-3"></i>重置</button>
+			</div>
+		</form>
+	</blockquote>
+	
+	<!-- 执行流程数据表格 -->
+	<div>
+		<table id="ExeWorkFlowTables" lay-filter="ExeWorkFlowTables" class="layui-hide"></table>
+		<!-- 头部工具条 -->
+		<div id="ExeWorkFlowTableToolBar" class="layui-hide">
+			<button type="button" lay-event="add"        class="layui-btn"><i class="layui-icon layui-icon-add-circle"></i>添加执行流程</button>
+			<button type="button" lay-event="allrefresh" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-refresh"></i>重新加载</button>
+		</div>
+	</div>
+	
+	<!-- 新增执行流程使用 -->
+	<div id="ExeWorkFlowdiv" style="display: none;">
+		<form action="" method="post" id="ExeWorkFlowFrom" lay-filter="ExeWorkFlowFrom" class="layui-form" style="margin: 10px">
+			<input type="hidden" name="id" id="exeTaskid">
+			
+			 <div class="layui-form-item">
+		    	<label class="layui-form-label">指定部署的流程</label>
+			   	 <div class="layui-input-block">
+				      <select name="type" id="workflow" lay-filter="workflows" lay-verify="required">
+				        <option value="">请选择</option>
+				      </select>
+			    </div>
+		  	</div>
+		  	
+			<div class="layui-form-item">
+				<label class="layui-form-label">执行标题</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" lay-verify="required" placeholder="请输入执行流程标题" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">信息内容</label>
+				<div class="layui-input-block">
+					<input type="text" name="content" lay-verify="required" placeholder="信息内容" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">信息数据</label>
+				<div class="layui-input-block">
+					<input type="text" name="datas" lay-verify="required|number" placeholder="信息数据" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+		  
+			<div class="layui-form-item" style="text-align: center;">
+				<button type="submit" class="layui-btn" lay-submit="" lay-filter="ExeWorkFlowSubmit"><i class="layui-icon layui-icon-ok-circle"></i>提交</button>
+				<button type="button" class="layui-btn layui-btn-primary" id="btnclose"><i class="layui-icon layui-icon-close-fill"></i>取消</button>
+			</div>
+			
+		</form>
+	</div>
+</body>
+<!-- &#xe63f; &#x1005;	&#xe617; &#x1007; &#xe60e;-->
+<script type="text/html" id="exeworkflow">
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis" style="color:green;">${ico}</i>
+    <div class="layui-timeline-content layui-text">
+      <h4 class="layui-timeline-title">${content}</h3>
+    </div>
+  </li>
+</script>
+<!-- 审批状态 -->
+<script type="text/html" id="statetpl">
+  {{#  if(d.state == 0) { }}
+    <font color="gray">已放弃</font>
+  {{#  } else if (d.state==1) { }}
+	<font color="orange">未提交</font>
+  {{#  } else if (d.state==4) { }}
+	<font color="green">审批完成</font>
+  {{#  } else { }}
+	<font color="blue">审批中</font>
+  {{#  } }}
+</script>
+
+<!-- 行内工具条的设置 -->
+<script type="text/html" id="ExeWorkFlowTableLineBar">
+  {{#  if(d.state == 0) { }}
+    <button type="button"  lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon layui-icon-delete"></i>删除</button>
+  {{#  } else if (d.state==1) { }}
+	<button type="button"  lay-event="commit" class="layui-btn layui-btn-sm" ><i class="layui-icon layui-icon-ok"></i>提交申请</button>
+	<button type="button"  lay-event="edit" class="layui-btn layui-btn-sm layui-btn-warm" ><i class="layui-icon layui-icon-edit"></i>编辑</button>
+	<button type="button"  lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon layui-icon-delete"></i>删除</button>
+  {{#  } else if (d.state==4) { }}
+	<button type="button"  lay-event="view" class="layui-btn layui-btn-sm layui-btn-normal" ><i class="layui-icon layui-icon-log"></i>审批查看</button>
+	<button type="button"  lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon layui-icon-delete"></i>删除</button>
+  {{#  } else { }}
+	<button type="button"  lay-event="view" class="layui-btn layui-btn-sm layui-btn-normal" ><i class="layui-icon layui-icon-log"></i>审批查看</button>
+  {{#  } }}
+</script>
+
+
+<script type="text/javascript" th:src=@{/resource/lib/layui/layui.js}></script>
+<script type="text/javascript" th:src=@{/resource/js/activiti/exeworkflowManager.js}></script>
+</html>

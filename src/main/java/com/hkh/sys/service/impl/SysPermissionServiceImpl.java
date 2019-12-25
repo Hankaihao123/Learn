@@ -3,6 +3,8 @@ package com.hkh.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.hkh.sys.bean.SysPermission;
 import com.hkh.sys.bean.SysUser;
+import com.hkh.sys.dao.SysExeWorkFlowMapper;
 import com.hkh.sys.dao.SysPermissionMapper;
 import com.hkh.sys.service.SysPermissionService;
 import com.hkh.sys.vo.PermissionVo;
@@ -23,9 +26,22 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 	@Autowired
 	SysPermissionMapper sysPermissionMapper;
 
+	@Autowired
+	SysExeWorkFlowMapper sysExeWorkFlowMapper;
+	
+	@Autowired
+	TaskService taskService;
+
 	// 查询所有的菜单集合,后期用用户id来查询
 	public ResultObj LoginQueryMenus() {
 		SysUser user = (SysUser) WebUtils.getSession().getAttribute("user");
+		List<Task> list = taskService.createTaskQuery().taskAssignee(user.getName()).list();
+		String str = null;
+		if (null == list || list.size() == 0) {
+			str = "<span class='layui-badge layui-hide'>0</span>";
+		} else {
+			str = "<span class='layui-badge'>"+list.size()+"</span>";
+		}
 		List<SysPermission> listMenu = null;
 		if (user.getType() == ResultObj.USER_HEIGHT) {
 			// 如果是超级管理员就不用处理菜单
@@ -41,6 +57,9 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 			Integer id = sysPermission.getId();
 			Integer pid = sysPermission.getPid();
 			String title = sysPermission.getTitle();
+			if (title.equals("待办流程任务")) {
+				title += str;
+			}
 			String icon = sysPermission.getIcon();
 			String href = sysPermission.getHref();
 			Boolean spread = (sysPermission.getOpen() == 1 ? true : false);

@@ -9,7 +9,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class WebUtils {
 
 	/**
-	 * 得到requset
+	 * 得到request
 	 */
 	public static HttpServletRequest getRequest() {
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder

@@ -29,7 +29,7 @@ public class HandleException {
 	@ExceptionHandler(UnauthorizedException.class)
 	public Object unauthorizedException(Exception e, HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("application/json;charset=utf-8;");
 		try {
 			ResultObj resultObj = new ResultObj(-1, "您没有该权限");
 			response.getWriter().print(JSON.toJSONString(resultObj));
@@ -44,7 +44,7 @@ public class HandleException {
 		if (isAjax(request)) {
 			// 返回JSON数据
 			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html;charset=UTF-8");
+			response.setContentType("application/json;charset=utf-8;");
 			try {
 				ResultObj resultObj = new ResultObj(-1, "系统内部有误,请联系管理员");
 				response.getWriter().print(JSON.toJSONString(resultObj));
