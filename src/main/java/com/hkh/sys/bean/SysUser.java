@@ -1,5 +1,6 @@
 package com.hkh.sys.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysUser {
+public class SysUser implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 
 	private String name;

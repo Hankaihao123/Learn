@@ -3,7 +3,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://111.229.238.222:3306/erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      url: jdbc:mysql://122.51.246.25:3306/erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
       username: root
       password: 897910256
       max-active: 20
@@ -44,7 +44,7 @@ spring:
    #redis配置
   redis:
     database: 0
-    host: 111.229.238.222
+    host: 122.51.246.25
     port: 6379
     password: 897910256
     jedis:

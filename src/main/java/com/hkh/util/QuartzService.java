@@ -19,7 +19,6 @@ public class QuartzService {
 	Scheduler scheduler;
 
 	public void startJob(String group, String name, Class clazz, String cron) {
-
 		// 封装信息
 		JobDataMap jobDataMap = new JobDataMap();
 		jobDataMap.put("group", group);
