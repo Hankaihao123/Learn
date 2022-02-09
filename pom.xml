@@ -19,7 +19,7 @@
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<druid.version>1.1.21</druid.version>
-		<shiro.version>1.4.2</shiro.version>
+		<shiro.version>1.7.1</shiro.version>
 		<log4j.version>1.2.17</log4j.version>
 		<hutool.version>5.0.6</hutool.version>
 		<lang3.version>3.9</lang3.version>
