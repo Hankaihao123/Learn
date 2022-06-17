@@ -24,7 +24,7 @@
 		<hutool.version>5.0.6</hutool.version>
 		<lang3.version>3.9</lang3.version>
 		<pinyin4j.version>2.5.1</pinyin4j.version>
-		<fastjosn.version>1.2.62</fastjosn.version>
+		<fastjosn.version>1.2.83</fastjosn.version>
 		<druid-spring-boot-starter.version>1.1.20</druid-spring-boot-starter.version>
 		<pagehelper-spring-boot-starter.version>1.2.12</pagehelper-spring-boot-starter.version>
 		<mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
